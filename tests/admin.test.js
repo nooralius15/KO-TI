@@ -8,6 +8,7 @@ afterAll(async () => {
 
 describe('Admin routes', () => {
   let createdProductId;
+  let createdProductImage;
 
   it('GET /admin/products - without auth', async () => {
     const res = await request(app).get('/admin/products');
@@ -46,6 +47,7 @@ describe('Admin routes', () => {
     expect(res.body.product.title).toBe('Test Toy');
     
     createdProductId = res.body.product.id;
+    createdProductImage = res.body.product.image;
   });
 
   it('PUT /admin/products/:id - update product', async () => {
@@ -79,7 +81,13 @@ describe('Admin routes', () => {
     const found = productsRes.body.find(p => p.id === createdProductId);
     expect(found).toBeUndefined();
     
-    // Cleanup DB
+    // Cleanup DB & image file
     await db.query('DELETE FROM products WHERE id = ?', [createdProductId]);
+    if (createdProductImage) {
+      const fs = require('fs');
+      const path = require('path');
+      const imgPath = path.join(__dirname, '..', 'public', createdProductImage);
+      if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
+    }
   });
 });
