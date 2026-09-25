@@ -177,7 +177,7 @@ docker compose down
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/your-username/KO-TI.git
+git clone https://github.com/nooralius15/KO-TI.git
 cd KO-TI
 npm install
 ```
