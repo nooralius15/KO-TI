@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment & Secrets
+.env
+.env.local
+
+# Migration utilities
+run_migration.js
+
+# OS-generated
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

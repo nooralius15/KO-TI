@@ -1,0 +1,29 @@
+{
+  "name": "koti-pet-shop",
+  "version": "2.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --forceExit --detectOpenHandles --runInBand"
+  },
+  "keywords": ["ecommerce", "pet-shop", "express", "stripe"],
+  "author": "Nooreldein Elkaweifi",
+  "license": "ISC",
+  "description": "Full-stack pet shop e-commerce platform with Stripe payments, inventory management, and admin dashboard",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-mysql-session": "^3.0.3",
+    "express-rate-limit": "^8.6.2",
+    "express-session": "^1.18.1",
+    "multer": "^2.2.0",
+    "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.2",
+    "stripe": "^18.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "supertest": "^7.3.0"
+  }
+}

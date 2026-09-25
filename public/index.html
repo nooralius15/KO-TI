@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Shop</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <!-- Link To CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/header.css" />
+
+    <!-- Box Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+
+    <!-- Header -->
+    <header>
+        <!-- Nav -->
+        <div class="nav container">
+            <!-- Logo -->
+            <a href="/" class="logo">🐾 KOTI</a>
+            <!-- Navbar -->
+            <i class="bx bx-menu" id="menu-icon"></i>
+            <div class="navbar" id="nav-menu">
+                <a href="/index.html#home" class="nav-link">HOME</a>
+                <a href="/index.html#products" class="nav-link">PRODUCTS</a>
+                <a href="/index.html#adoption" class="nav-link">ADOPTION</a>
+                <a href="/index.html#about-us" class="nav-link">ABOUT</a>
+            </div>
+            <!-- Icons -->
+            <div>
+                <!-- Cart-Icon -->
+                <a href="cart.html">
+                    <i class="bx bx-shopping-bag" id="cart-icon" data-quantity="0"></i>
+                </a>
+                <!-- User Icon Dropdown -->
+                <a>
+                    <i class="bx bx-user" id="user-icon"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-container">
+            <!-- Animated Background Elements -->
+            <div class="deco-shape shape-1"></div>
+            <div class="deco-shape shape-2"></div>
+            <div class="deco-shape shape-3"></div>
+
+            <!-- Image Container with Effects -->
+            <div class="image-container">
+                <div class="image-border"></div>
+                <img src="images/homedog.png" alt="Happy Dog" class="home-dog-img" />
+                <div class="image-gradient-overlay"></div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="home-content">
+                <div class="text-container">
+                    <p class="pre-title animate-slide-right">Premium Pet Care</p>
+                    <h1 class="main-title animate-slide-left">
+                        <span class="highlight">Premium</span> Care<br>
+                        For Your Furry<br>
+                        Friends
+                    </h1>
+                    <p class="subtext animate-fade-in">Discover natural, organic products for your pet's health and
+                        happiness</p>
+
+                    <div class="button-container animate-fade-up">
+                        <a href="#products" class="cta-btn">
+                            Explore Products
+                            <span class="btn-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products container" id="products">
+        <!-- Heading -->
+        <h2 class="heading">Discover Product</h2>
+        <!-- Search & Sort Bar -->
+        <div class="product-controls">
+            <div class="search-box">
+                <i class="bx bx-search"></i>
+                <input type="text" id="productSearch" placeholder="Search products..." />
+            </div>
+            <select id="productSort" class="sort-select">
+                <option value="default">Sort by</option>
+                <option value="price-asc">Price: Low → High</option>
+                <option value="price-desc">Price: High → Low</option>
+                <option value="name-asc">Name: A → Z</option>
+            </select>
+        </div>
+        <!-- Products Container -->
+        <div class="product-container" id="productList"></div>
+    </section>
+    <style>
+      .adopt-btn { display: inline-block; margin-top: 10px; padding: 8px 18px; background: #ff6b35; color: white; text-decoration: none; border-radius: 20px; font-size: 14px; font-weight: bold; transition: background 0.3s, transform 0.2s; cursor: pointer; border: none; }
+      .adopt-btn:hover { background: #e5552a; transform: scale(1.05); }
+      /* Adoption Modal */
+      .adopt-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+      .adopt-modal-overlay.active { display: flex; }
+      .adopt-modal { background: #fff; border-radius: 16px; padding: 30px; max-width: 450px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
+      .adopt-modal h3 { margin-bottom: 20px; color: #333; }
+      .adopt-modal label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #555; }
+      .adopt-modal input, .adopt-modal textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; }
+      .adopt-modal textarea { resize: vertical; min-height: 80px; }
+      .adopt-modal .close-modal { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
+      .adopt-modal .close-modal:hover { color: #333; }
+      .adopt-modal button[type="submit"] { width: 100%; padding: 12px; background: #ff6b35; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+      .adopt-modal button[type="submit"]:hover { background: #e5552a; }
+      .adopt-modal button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; }
+      .adopt-toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 14px 24px; border-radius: 10px; font-weight: bold; z-index: 1001; transform: translateY(100px); opacity: 0; transition: all 0.3s; }
+      .adopt-toast.show { transform: translateY(0); opacity: 1; }
+    </style>
+    <section id="adoption" class="adoption-section">
+        <h2>Adopt a Friend 🐾</h2>
+        <p>Meet our lovely cats and dogs looking for a forever home!</p>
+        <div class="adoption-grid">
+            <!-- Cats -->
+            <div class="pet-card">
+                <img src="images/luna.jpeg" alt="Luna the cat">
+                <h3>Luna</h3>
+                <p>Playful and cuddly tabby who loves naps.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Luna')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/milo.jpeg" alt="Milo the cat">
+                <h3>Milo</h3>
+                <p>Curious explorer, 2 years old, neutered.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Milo')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/nala.jpg" alt="Nala the cat">
+                <h3>Nala</h3>
+                <p>Gentle and sweet, perfect lap cat.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Nala')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/simba.jpeg" alt="Simba the cat">
+                <h3>Simba</h3>
+                <p>Loves to climb and chase toys.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Simba')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/selo.jpeg" alt="Cleo the cat">
+                <h3>Cleo</h3>
+                <p>Quiet and affectionate senior cat.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Cleo')">🐾 Inquire to Adopt</button>
+            </div>
+
+            <!-- Dogs -->
+            <div class="pet-card">
+                <img src="images/max.jpeg" alt="Max the dog">
+                <h3>Max</h3>
+                <p>Loyal companion, good with kids.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Max')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/bella.jpeg" alt="Bella the dog">
+                <h3>Bella</h3>
+                <p>Energetic and loving, loves fetch.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Bella')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/charle.jpeg" alt="Charlie the dog">
+                <h3>Charlie</h3>
+                <p>Laid-back and friendly lab mix.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Charlie')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/daisy.jpeg" alt="Daisy the dog">
+                <h3>Daisy</h3>
+                <p>Sweet rescue looking for a quiet home.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Daisy')">🐾 Inquire to Adopt</button>
+            </div>
+            <div class="pet-card">
+                <img src="images/smoky.jpg" alt="Rocky the dog">
+                <h3>Rocky</h3>
+                <p>Young pup, loves walks and treats.</p>
+                <button class="adopt-btn" onclick="openAdoptModal('Rocky')">🐾 Inquire to Adopt</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adoption Inquiry Modal -->
+    <div class="adopt-modal-overlay" id="adoptModalOverlay">
+        <div class="adopt-modal">
+            <button class="close-modal" onclick="closeAdoptModal()">&times;</button>
+            <h3>🐾 Adoption Inquiry: <span id="adoptPetName"></span></h3>
+            <form id="adoptionForm">
+                <input type="hidden" id="adoptPetNameInput" />
+                <label for="adoptName">Your Name *</label>
+                <input type="text" id="adoptName" placeholder="Full name" required />
+                <label for="adoptEmail">Email *</label>
+                <input type="email" id="adoptEmail" placeholder="your@email.com" required />
+                <label for="adoptPhone">Phone</label>
+                <input type="tel" id="adoptPhone" placeholder="(optional)" />
+                <label for="adoptMessage">Message</label>
+                <textarea id="adoptMessage" placeholder="Tell us why you'd like to adopt this pet..."></textarea>
+                <button type="submit" id="adoptSubmitBtn">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+    <div class="adopt-toast" id="adoptToast"></div>
+
+    <script>
+    function openAdoptModal(petName) {
+        document.getElementById('adoptPetName').textContent = petName;
+        document.getElementById('adoptPetNameInput').value = petName;
+        document.getElementById('adoptModalOverlay').classList.add('active');
+    }
+    function closeAdoptModal() {
+        document.getElementById('adoptModalOverlay').classList.remove('active');
+        document.getElementById('adoptionForm').reset();
+    }
+    // Close modal on overlay click
+    document.getElementById('adoptModalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeAdoptModal();
+    });
+    // Submit adoption inquiry
+    document.getElementById('adoptionForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('adoptSubmitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+        try {
+            const res = await fetch('/api/adoption-inquiries', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pet_name: document.getElementById('adoptPetNameInput').value,
+                    applicant_name: document.getElementById('adoptName').value.trim(),
+                    applicant_email: document.getElementById('adoptEmail').value.trim(),
+                    applicant_phone: document.getElementById('adoptPhone').value.trim() || null,
+                    message: document.getElementById('adoptMessage').value.trim() || null
+                })
+            });
+            const data = await res.json();
+            closeAdoptModal();
+            const toast = document.getElementById('adoptToast');
+            toast.textContent = data.success ? data.message : (data.error || 'Something went wrong');
+            toast.style.background = data.success ? '#28a745' : '#dc3545';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        } catch (err) {
+            const toast = document.getElementById('adoptToast');
+            toast.textContent = 'Network error. Please try again.';
+            toast.style.background = '#dc3545';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Submit Inquiry';
+        }
+    });
+    </script>
+    <!-- About Section -->
+    <section id="about-us" class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-image-container">
+                    <img src="images/about.jpeg" alt="Cute Pets" class="about-image">
+                </div>
+                <div class="about-text">
+                    <h1 id="typing-title">WELCOME TO KO-TI</h1>
+                    <p class="fade">Welcome to KOTI — your one-stop shop for all things pets! We're a small, passionate
+                        team of
+                        animal lovers dedicated to bringing joy, comfort, and care to your furry friends.</p>
+
+                    <h2 class="fade">Our Story</h2>
+                    <p class="fade">KOTI started as a tiny cat rescue initiative in 2020. Today, we've grown into a
+                        full-service
+                        pet store offering high-quality food, toys, bedding, and grooming supplies — all curated with
+                        your pets in
+                        mind.</p>
+
+                    <h2 class="fade">Our Mission</h2>
+                    <p class="fade">To create a world where every pet is healthy, happy, and loved. We support local
+                        shelters and
+                        encourage adoption by showcasing lovable pets in need of forever homes.</p>
+                    <h2 class="fade">Why Choose Us?</h2>
+                    <ul class="fade" class="fade2">
+                        <li>🐶 Carefully selected, vet-approved products</li>
+                        <li>🐾 Friendly, knowledgeable customer service</li>
+                        <li>🐱 Commitment to animal welfare and ethical sourcing</li>
+                        <li>🚚 Fast, reliable delivery and in-store pickup options</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <div class="footer" id="footer">
+        <div class="footer-c container">
+            <div class="footer-box">
+                <div class="logo-wrapper">
+                    <h2 class="footer-logo">KOTI</h2>
+                    <div class="logo-trail">
+                        <div class="paw-dot" style="--delay: 0s"></div>
+                        <div class="paw-dot" style="--delay: 0.2s"></div>
+                        <div class="paw-dot" style="--delay: 0.4s"></div>
+                    </div>
+                </div>
+                <p class="footer-tagline">Where every pet finds love</p>
+                <div class="social">
+                    <a href="#" class="social-icon" data-tooltip="Pinterest">
+                        <i class="bx bxl-pinterest-alt"></i>
+                        <span class="hover-effect"></span>
+                    </a>
+                    <a href="#" class="social-icon" data-tooltip="Instagram">
+                        <i class="bx bxl-instagram"></i>
+                        <span class="hover-effect"></span>
+                    </a>
+                    <a href="#" class="social-icon" data-tooltip="Facebook">
+                        <i class="bx bxl-facebook"></i>
+                        <span class="hover-effect"></span>
+                    </a>
+                    <a href="#" class="social-icon" data-tooltip="WhatsApp">
+                        <i class="bx bxl-whatsapp"></i>
+                        <span class="hover-effect"></span>
+                    </a>
+                    <a href="#" class="social-icon" data-tooltip="YouTube">
+                        <i class="bx bxl-youtube"></i>
+                        <span class="hover-effect"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="copyright-box">
+                <p class="copyright">&#169; <span class="year"></span> KOTI PET SHOP</p>
+                <div class="legal-links">
+                    <a href="#">Privacy</a>
+                    <span class="divider">•</span>
+                    <a href="#">Terms</a>
+                    <span class="divider">•</span>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-paws">
+            <div class="paw" style="--x: 5%; --delay: 0s">🐾</div>
+            <div class="paw" style="--x: 15%; --delay: 0.4s">🐾</div>
+            <div class="paw" style="--x: 30%; --delay: 0.8s">🐾</div>
+            <div class="paw" style="--x: 50%; --delay: 1.2s">🐾</div>
+            <div class="paw" style="--x: 70%; --delay: 1.6s">🐾</div>
+            <div class="paw" style="--x: 85%; --delay: 2s">🐾</div>
+            <div class="paw" style="--x: 95%; --delay: 2.4s">🐾</div>
+        </div>
+    </div>
+
+    <!-- Link To JS -->
+    <script src="js/main.js"></script>
+    <script src="js/menu.js"></script>
+</body>
+
+</html>
