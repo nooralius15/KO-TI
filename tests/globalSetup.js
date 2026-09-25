@@ -20,17 +20,9 @@ module.exports = async function globalSetup() {
   await conn.query('CREATE DATABASE koti_test');
   await conn.query('USE koti_test');
 
-  // Load and execute the base schema
+  // Load and execute the consolidated schema
   const schemaSQL = fs.readFileSync(path.join(__dirname, '..', 'koti.sql'), 'utf8');
   await conn.query(schemaSQL);
-
-  // Run tier 4 migration (stock_quantity, payment_status, etc.)
-  const tier4SQL = fs.readFileSync(path.join(__dirname, '..', 'migration_tier4.sql'), 'utf8');
-  await conn.query(tier4SQL);
-
-  // Run tier 5 migration (adoption_inquiries)
-  const tier5SQL = fs.readFileSync(path.join(__dirname, '..', 'migration_tier5.sql'), 'utf8');
-  await conn.query(tier5SQL);
 
   // Seed a test admin user with a known bcrypt hash for '123456'
   const bcrypt = require('bcryptjs');

@@ -122,9 +122,7 @@ KO-TI/
 ├── server.js                  # Main Express application & API routing
 ├── db.js                      # Promise pool & raw connection export
 ├── email.js                   # Nodemailer configuration & HTML templates
-├── koti.sql                   # Base database schema & initial seed data
-├── migration_tier4.sql        # Migration: Inventory, refunds, payment status
-├── migration_tier5.sql        # Migration: Adoption inquiries table
+├── koti.sql                   # Consolidated database schema & seed data
 ├── views/                     # Protected Server-Rendered Views
 │   ├── admin.html             # Admin panel (Orders, Products CRUD, Adoptions)
 │   └── dashboard.html         # Customer dashboard (Orders, Profile, Password)
@@ -183,12 +181,10 @@ npm install
 ```
 
 ### 2. Configure Database
-Ensure MySQL or MariaDB is running, then import the base schema and migrations:
+Ensure MySQL or MariaDB is running, then import the consolidated schema:
 ```bash
 mysql -u root -p -e "CREATE DATABASE koti;"
 mysql -u root -p koti < koti.sql
-mysql -u root -p koti < migration_tier4.sql
-mysql -u root -p koti < migration_tier5.sql
 ```
 
 ### 3. Environment Variables
